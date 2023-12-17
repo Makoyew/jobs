@@ -41,6 +41,7 @@ Route::delete('/log/{id}', [LogController::class, 'destroy'])->name('log.delete'
 Route::post('/clear-all-logs', [LogController::class, 'clearAllLogs'])->name('logs.clearAll');
 
 
+Route::post('/plugins/{plugin}', [PluginController::class, 'download'])->name('plugin.download');
 
 
 Route::get('/index', [DashboardController::class, 'index']);

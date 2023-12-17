@@ -9,7 +9,7 @@
         background-color: rgb(29, 29, 29);">
         <div class="d-flex justify-content-between">
             <div class="">
-                <h1 style="font-family: 'Pacifico', cursive; text-shadow: 0 0 10px white;"><i class="fa-solid fa-seedling"></i> Fruity Loops</h1>
+                <h1 style="font-family: 'Pacifico', cursive; text-shadow: 0 0 10px white;"><i class="fa-solid fa-seedling"></i> Fruity Loops store</h1>
             </div>
             <div class="mt-1">
                 <a class="btn text-white" href="/dashboard"><i class="fa-solid fa-headphones"></i> Plugins</a>

@@ -9,11 +9,14 @@
         background-color: rgb(29, 29, 29);">
         <div class="d-flex justify-content-between">
             <div class="">
-                <h1 style="font-family: 'Pacifico', cursive; text-shadow: 0 0 10px white;"><i class="fa-solid fa-seedling"></i> Fruity Loops</h1>
+                <h1 style="font-family: 'Pacifico', cursive; text-shadow: 0 0 10px white;"><i class="fa-solid fa-seedling"></i> Fruity Loops store</h1>
             </div>
             <div class="mt-1">
                 <a class="btn text-white" href="/dashboard"><i class="fa-solid fa-headphones"></i> Plugins</a>
+                @role('admin')
                 <a class="btn text-white" href="/logs"><i class="fa-solid fa-envelope"></i> Logs</a>
+                @endrole
+
                 <button class="text-white rounded-lg pe-4 ps-4 text-danger btn" style="background-color: transparent; font-size: 20px;" id="logoutButton" data-toggle="modal" data-target="#confirmLogoutModal"><i class="fa-solid fa-right-from-bracket"></i> {{ Auth::user()->name }}</button>
             </div>
         </div>
@@ -23,9 +26,12 @@
         <div class="p-5">
             <div style="margin-top: 100px;">
                 <h1 class="d-flex justify-content-between"> Plugins
+                    @role('admin')
                     <button style="text-shadow: 0 0 10px white;" type="button" class="btn text-white" data-toggle="modal" data-target="#exampleModal">
                         <i class="fa fa-plus"></i> Add Plugins
                     </button>
+                    @endrole
+
                 </h1>
                 <br>
                 <div class="d-flex flex-wrap justify-content-between">
@@ -48,11 +54,21 @@
                             class="text-white border-0 shadow-lg rounded-lg p-2"
                             style="background-color: rgba(0, 0, 0, 0.599); resize: none;"
                             name="" id="" cols="59" rows="5">{{$plugin->description}}</textarea> <br> <br>
-                            <div class="text-right">
-                                <button style="text-shadow: 0 0 10px white;" class="btn text-white" data-toggle="modal" data-target="#editModal-{{ $plugin->id }}"><i class="fa fa-edit"></i> Download</button>
+                            <div class="text-right flex">
+                                <form action="{{ route('plugin.download', $plugin) }}" method="POST">
+                                    @csrf <!-- This adds the CSRF token -->
+                                    @role('user')
+                                        <button type="submit" style="text-shadow: 0 0 10px white;" class="btn text-white"><i class="fa fa-edit"></i> Download</button>
+                                    @endrole
 
-                                <button style="text-shadow: 0 0 10px white;" class="btn text-white" data-toggle="modal" data-target="#editModal-{{ $plugin->id }}"><i class="fa fa-edit"></i> Edit</button>
-                                <button style="text-shadow: 0 0 10px white;" class="btn text-white" data-toggle="modal" data-target="#deleteModal-{{ $plugin->id }}" data-plugin-id="{{ $plugin->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                    @role('admin')
+                                    <button type="button" style="text-shadow: 0 0 10px white;" class="btn text-white" data-toggle="modal" data-target="#editModal-{{ $plugin->id }}"><i class="fa fa-edit"></i> Edit</button>
+                                    <button type="button" style="text-shadow: 0 0 10px white;" class="btn text-white" data-toggle="modal" data-target="#deleteModal-{{ $plugin->id }}" data-plugin-id="{{ $plugin->id }}"><i class="fa fa-trash"></i> Delete</button>
+                                    @endrole
+
+                                </form>
+
+
 
                             </div>
                         </div>

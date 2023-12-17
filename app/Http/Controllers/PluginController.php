@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Plugin;
+use App\Models\User;
+
 use Illuminate\Support\Facades\Auth;
 use App\Events\UserLog;
+use App\Notifications\DownloadNotification;
 
 class PluginController extends Controller
 {
@@ -131,6 +134,16 @@ class PluginController extends Controller
 
 
         return redirect()->route('plugins.index')->with('success', 'Plugin updated successfully.');
+    }
+
+
+    public function download(Request $request, Plugin $plugin){
+        $user = User::find(1); // Replace with your notifiable entity retrieval logic
+
+        $user->notify(new DownloadNotification($plugin));
+
+        return redirect()->route('dashboard')->with('success', 'Thanks for downloading! Check your email for details.');
+
     }
 
 
